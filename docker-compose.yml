@@ -44,7 +44,7 @@ services:
     build:
       context: ./read-api
       dockerfile: Dockerfile
-    image: bossini/red-api
+    image: bossini/read-api
     container_name: read-api
     ports:
       - 8080:8080
