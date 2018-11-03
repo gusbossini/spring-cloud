@@ -1,0 +1,54 @@
+version: '3'
+services:
+
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    image: bossini/eureka-server
+    container_name: eureka-server
+    ports:
+      - 8761:8761
+
+  data-api:
+    build:
+      context: ./data-api
+      dockerfile: Dockerfile
+    image: bossini/data-api
+    container_name: data-api
+    ports:
+      - 8081:8080
+    depends_on:
+      - "eureka-server"
+    environment:
+      PORT: 8080
+      EUREKA_URI: "http://eureka-server:8761/eureka"
+      APP_ID: 1
+
+  data-api-1:
+    build:
+      context: ./data-api
+      dockerfile: Dockerfile
+    image: bossini/data-api
+    container_name: data-api-1
+    ports:
+      - 8082:8080
+    depends_on:
+      - "eureka-server"
+    environment:
+      PORT: 8080
+      EUREKA_URI: "http://eureka-server:8761/eureka"
+      APP_ID: 2
+
+  read-api:
+    build:
+      context: ./read-api
+      dockerfile: Dockerfile
+    image: bossini/red-api
+    container_name: read-api
+    ports:
+      - 8080:8080
+    depends_on:
+      - "eureka-server"
+    environment:
+      EUREKA_URI: "http://eureka-server:8761/eureka"

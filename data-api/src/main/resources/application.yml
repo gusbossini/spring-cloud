@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: data-service
+
+server:
+  port: ${PORT:8081}
+
+eureka:
+  client:
+    fetchRegistry: true
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+ondeEstouRodando: ${APP_ID}
